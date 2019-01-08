@@ -17,7 +17,9 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/bbcNews", {useNewUrlParser:true});
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/bbcNews";
+
+mongoose.connect(MONGODB_URI, {useNewUrlParser:true});
 
 app.get("/scrape", function(req, res){
     axios.get("https://www.bbc.com/").then(function(response){
